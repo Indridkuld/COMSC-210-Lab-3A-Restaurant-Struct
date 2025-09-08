@@ -1,3 +1,5 @@
+// COMSC-210 | Lab 3A | Aidan Woodcock | 2024-09-10
+// IDE used: Visual Studio Code
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -19,37 +21,23 @@ void printRestaurantInfo(const Restaurant& restaurant);
 
 int main() {
 vector<Restaurant> topRestaurants; 
-char addAnother = 'Y';
 
-while(addAnother == 'Y') {
-        topRestaurants.push_back(populateRestaurantData());
-        cout << "Would you like to add another restaurant? (Y/N): ";
-        cin.ignore();
-        cin >> addAnother;  
-        addAnother = toupper(addAnother);
-        while (addAnother != 'Y' && addAnother != 'N') {
-            cout << "Invalid entry. Please enter Y or N: " << endl;
-            cin.ignore();
-            cin >> addAnother; 
-            addAnother = toupper(addAnother);
-        }
-    }
+topRestaurants.push_back(populateRestaurantData());
+
 // output all restaurant info within arrray, for loop was comparing unsigned int so changed to size_t
 for (size_t i = 0; i < topRestaurants.size(); i++) {
     cout << "Restaurant #" << i + 1 << ":\n";
     printRestaurantInfo(topRestaurants[i]);
     cout << endl; 
     }
+return 0;
 
-return 0; 
 }
-
 Restaurant populateRestaurantData() {
     Restaurant temp; 
     cout << "Enter information with file or manually (F/M)?: " << endl;
     char entry;
-    cin >> entry;
-    entry = toupper(entry);   
+    cin >> entry;   
     while (entry != 'F' && entry != 'M') {
         cout << "Invalid entry. Please enter F or M: " << endl;
         cin >> entry; 
@@ -66,7 +54,7 @@ Restaurant populateRestaurantData() {
         infile.close();
     } else if (entry == 'M') {
         cout << "Enter the restaurant's name: ";
-        cin.ignore(); // Clear the newline character from the input buffer
+        cin.ignore(); // Clear the input buffer
         getline(cin, temp.name); // Use getline to allow for spaces in the name and address
         cout << "Enter restaurant address: ";
         getline(cin, temp.address); 
@@ -76,10 +64,10 @@ Restaurant populateRestaurantData() {
         cin >> temp.numReviews;
         cout << "Is the restaurant open? (1 for yes, 0 for no): ";
         cin >> temp.isOpen;
-    }
 
-    return temp;
-};
+        return temp;
+    }
+}
 void printRestaurantInfo(const Restaurant& restaurant) {
     cout << "Name: " << restaurant.name << endl;
     cout << "Address: " << restaurant.address << endl;
